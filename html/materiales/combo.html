@@ -1,0 +1,58 @@
+{{define "combo"}}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales</title>
+    {{template "estilos"}}
+</head>
+
+<body class="container">
+    {{template "menu"}}
+    <h1>Materiales ComboBox</h1>
+    <input type="text" id="idbuscado" value="{{.IdCombo}}">
+    <form method="POST" action="/combo">
+
+        <div class=" input-group container">
+            <select class="form-select" name="idMaterial" id="idcombobuscado"
+                aria-label="Example select with button addon">
+                <option value="">--Seleccione opcion--</option>
+                {{range .ListaMateriales}}
+                <option value="{{.Id}}">{{.Descripcion}}</option>
+                {{end}}
+            </select>
+            <button class="btn btn-outline-secondary" type="submit">Buscar Id</button>
+        </div>
+    </form>
+    <table class="table container" id="table">
+        <thead>
+            <tr class="table-dark">
+                <td>Descripcion Materiales</td>
+                <td>Precio por Unidad</td>
+                <td>Cantidad </td>
+                <td>Fecha</td>
+                <td>Dolar Hoy</td>
+                <td>Id </td>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .ListaMateriales}}
+            <tr>
+                <td>{{.Descripcion}}</td>
+                <td>{{.Precio}}</td>
+                <td>{{.Cantidad}}</td>
+                <td>{{.Fecha}}</td>
+                <td>{{.Dolar}}</td>
+                <td>{{.Id}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    
+</body>
+{{template "scripts"}}
+
+</html>
+{{end}}

@@ -1,0 +1,67 @@
+{{define "materiales"}}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales</title>
+    {{template "estilos"}}
+</head>
+{{template "menu"}}
+
+<body class="container">
+    <h1>Materiales...con SQLite3...</h1>
+    <form method="POST" action="/materiales">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Ingrese el material a buscar"
+                aria-label="Recipiente's username" aria-describedby="button-addon2" name="nombre" value={{.Nombre}}>
+            <button class="btn btn-outline-danger" type="submit" id="button-addon2">Busqueda por Nombre..</button>
+        </div>
+    </form>
+    <table class="table container " id="table">
+        <thead>
+            <tr class="table-dark">
+                <td>Id </td>
+                <td>Descripcion Materiales</td>
+                <td>Precio Unidad</td>
+                <td>Cantidad</td>
+                <td>Precio Total</td>
+                <td>Fecha  </td>
+                <td>Dolar </td>
+                <td>Operaciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .ListaMateriales}}
+            <tr>
+                <td>{{.Id}}</td>
+                <td>{{.Descripcion}}</td>
+                <td>{{.Precio}} $</td>
+                <td>{{.Cantidad}} un.</td>
+                <td>{{.Total}} $</td>
+                <td>{{.Fecha}}</td>
+                <td>{{.Dolar}} $</td>
+
+                <td>
+                    <a class="btn btn-primary" href="/editar/{{.Id}}">{{.Id}}
+
+                        <img src="/static/Icons/airplane-engines-fill.svg" alt="" width="16" height="16">
+                    </a>
+                    <a class="btn btn-primary" onclick="mostrarAlerta({{.Id}})" href="/eliminar/{{.Id}}">
+                        <img src="/static/Icons/trash3-fill.svg" alt="" width="16" height="16">
+                    </a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    <form method="post" id="frm">
+        <input type="hidden" id="txtid" name="id">
+        <script type="text/javascript" src="/static/js/materiales.js "></script>
+    </form>
+</body>
+{{template "scripts"}}
+
+</html>
+{{end}}

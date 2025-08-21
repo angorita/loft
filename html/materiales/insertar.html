@@ -1,0 +1,63 @@
+{{define "insertar"}}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{template "estilos"}}
+    <title>Nuevo Material</title>
+</head>
+
+<body class="container">
+    {{template "menu"}}
+    <h1>Insertar Materiales...</h1>
+    <form action="/insertar" method="POST" class="container" id="frmEnviar">
+        <div class="mb-3">
+            <label for="txtDescripcion" class="form-label">Descripcion Material</label>
+            <input type="text" class="form-control" id="txtDescripcion" value="Cajas de Dulce de leche"
+                placeholder="Descripcion del material" name="descripcion">
+        </div>
+        <div class="mb-3">
+            <label for="txtPrecio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="txtPrecio" placeholder="Coloque el precio" value="1012"
+                name="precio">
+        </div>
+
+        <div class="mb-3">
+            <label for="txtCantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="txtCantidad" value="1"
+                placeholder="Coloque la cantidad de material" name="cantidad">
+        </div>
+        <div class="mb-3">
+            <label for="txtFecha" class="form-label">Fecha</label>
+            <input type="text" class="form-control" id="txtFecha" placeholder="Coloque la fecha" name="fecha" value="2014-10-28">
+        </div>
+        <div class="mb-3">
+            <label for="txtDolar" class="form-label">Dolar Hoy</label>
+            <input type="number" class="form-control" id="txtDolar" placeholder="Coloque el valor del dolar de hoy"
+                name="dolar" value="1200">
+        </div>
+        <div>
+            <!-- llamo a sweet alert personalizado -->
+            <button type="submit" onclick="mostrarAlerta()" class="btn btn-outline-success">
+                Aceptar
+            </button>
+            <a href="/materiales" class="btn btn-outline-danger">Regresar</a>
+        </div>
+        <div id="divErrores">
+
+        </div>
+        {{if .ExisteError}}
+        <div class="alert alert-danger">
+            {{.MensajeError}}
+
+        </div>
+        {{end}}
+    </form>
+    {{template "scripts"}}
+    <script type="text/javascript" src="/static/js/insertar.js "></script>
+</body>
+
+</html>
+{{end}}

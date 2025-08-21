@@ -1,0 +1,66 @@
+{{define "editar"}}
+<!DOCTYPE html>
+
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Materiales</title>
+    {{template "estilos"}}
+</head>
+
+<body class="container">
+    {{template "menu"}}
+    <div>
+        <h1>Actualizar</h1>
+        <form action="/insertar" method="POST" class="container" id="frmEnviar">
+            
+            <div class="mb-3">
+                <label for="txtDescripcion" class="form-label">Descripcion Material</label>
+
+                <input type="text" value="{{.Descripcion}}" class="form-control" placeholder="Descripcion del material"
+                    id="txtDescripcion" name="descripcion">
+            </div>
+            <div class="mb-3">
+                <label for="txtPrecio" class="form-label">Precio</label>
+                <input type="number" class="form-control" value="{{.Precio}}" placeholder="Coloque el precio"
+                    id="txtPrecio" name="precio">
+            </div>
+            <div class="mb-3">
+                <label for="txtCantidad" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" value="{{.Cantidad}}"
+                    placeholder="Coloque la cantidad de material" id="txtCantidad" name="cantidad">
+            </div>
+            <div class="mb-3">
+                <label for="txtFecha" class="form-label">Fecha</label>
+                <input type="text" class="form-control" placeholder="Coloque la fecha" value="{{.Fecha}}" id="txtFecha"
+                    name="fecha">
+            </div>
+            <div class="mb-3">
+                <label for="txtDolar" class="form-label">Dolar Hoy</label>
+                <input type="number" class="form-control" placeholder="Coloque el valor del dolar de hoy"
+                    value="{{.Dolar}}" id="txtDolar" name="dolar">
+            </div>
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id Material</label>
+                <input type="number" class="form-control" readonly value="{{.Id}}" id="txtId" name="idMaterial">
+            </div>
+            <div>
+                <!-- llamo a sweet alert personalizado -->
+                <button type="submit" onclick="mostrarAlerta()" class="btn btn-outline-success">
+                    Aceptar
+                </button>
+                <a href="/materiales" class="btn btn-outline-danger">Regresar</a>
+            </div>
+            <div id="divErrores">
+
+            </div>
+        </form>
+    </div>
+</body>
+{{template "scripts"}}
+<script type="text/javascript" src="/static/js/editar.js"> </script>
+
+</html>
+{{end}}
