@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	cd "LoftSQLite3/capaDatos"
-	m "LoftSQLite3/models"
-	u "LoftSQLite3/utilitarios"
 	"net/http"
 	"strconv"
 
+	cd "github.com/angorita/loft/capaDatos"
+	m "github.com/angorita/loft/models"
+	u "github.com/angorita/loft/utilitarios"
 	"github.com/gorilla/mux"
 )
 

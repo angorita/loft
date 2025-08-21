@@ -1,14 +1,15 @@
 package capadatos
 
 import (
-	"LoftSQLite3/db"
-	"LoftSQLite3/models"
+	"github.com/angorita/loft/db"
+	"github.com/angorita/loft/models"
 )
 
 func Wilder() models.ListaWilder {
 	oLista := models.ListaWilder{}
 	sqlQuery := `select descripcion,precio,cantidad
 	from producto where descripcion like '%ilder%'`
+
 	db.Open()
 	rows, _ := db.Query(sqlQuery)
 	for rows.Next() {

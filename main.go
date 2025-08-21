@@ -1,12 +1,13 @@
 package main
 
 import (
-	h "LoftSQLite3/handlers"
 	"fmt"
+	h "github.com/angorita/loft/handlers"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
+
 //oscar angarita
 
 func main() {

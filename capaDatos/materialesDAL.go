@@ -2,9 +2,10 @@
 package capadatos
 
 import (
-	db "LoftSQLite3/db"
-	m "LoftSQLite3/models"
 	"database/sql"
+
+	db "github.com/angorita/loft/db"
+	m "github.com/angorita/loft/models"
 )
 
 /*          $total = $producto['precio'] * $producto['cantidad'];

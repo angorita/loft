@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	cd "LoftSQLite3/capaDatos"
 	"encoding/json"
 	"fmt"
+	cd "github.com/angorita/loft/capaDatos"
 	"net/http"
 )
 

@@ -1,4 +1,4 @@
-module LoftSQLite3
+module github.com/angorita/loft
 
 go 1.25.0
 
