@@ -4,7 +4,6 @@ import (
 	"errors"
 )
 
-// La estructura de materiales que la llama handlers.Materiales
 type Materiales struct {
 	Descripcion  string
 	Precio       float64
