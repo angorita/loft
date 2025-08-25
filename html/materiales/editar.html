@@ -13,9 +13,12 @@
 <body class="container">
     {{template "menu"}}
     <div>
-        <h1>Actualizar</h1>
+        <h1>Editar</h1>
         <form action="/insertar" method="POST" class="container" id="frmEnviar">
-            
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id Material</label>
+                <input type="number" class="form-control" readonly value="{{.Id}}" id="txtId" name="idMaterial">
+            </div>
             <div class="mb-3">
                 <label for="txtDescripcion" class="form-label">Descripcion Material</label>
 
@@ -42,10 +45,7 @@
                 <input type="number" class="form-control" placeholder="Coloque el valor del dolar de hoy"
                     value="{{.Dolar}}" id="txtDolar" name="dolar">
             </div>
-            <div class="mb-3">
-                <label for="txtId" class="form-label">Id Material</label>
-                <input type="number" class="form-control" readonly value="{{.Id}}" id="txtId" name="idMaterial">
-            </div>
+
             <div>
                 <!-- llamo a sweet alert personalizado -->
                 <button type="submit" onclick="mostrarAlerta()" class="btn btn-outline-success">
@@ -54,7 +54,6 @@
                 <a href="/materiales" class="btn btn-outline-danger">Regresar</a>
             </div>
             <div id="divErrores">
-
             </div>
         </form>
     </div>

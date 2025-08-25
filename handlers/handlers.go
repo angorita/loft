@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -36,16 +37,17 @@ func Combo(w http.ResponseWriter, r *http.Request) {
 	var oMateriales []m.Materiales
 	idMaterial := r.FormValue("idMaterial")
 	if r.Method == "GET" {
+		fmt.Println("Estoy en get ")
 		oMateriales = cd.ListaMateriales()
 	} else {
 		if idMaterial == "" {
 			oMateriales = cd.ListaMateriales()
-
+			fmt.Println("idmaterial sin nada")
 		} else {
 			//entero convertido con atoi
 			num, _ := strconv.Atoi(idMaterial)
-
 			oMateriales = cd.FiltrarId(num)
+			fmt.Println("combo filtrado..con Id ..", oMateriales)
 		}
 	}
 	obj := ListaMaterialesForm{ListaMateriales: oMateriales, IdCombo: idMaterial}
@@ -55,33 +57,32 @@ func Principal(w http.ResponseWriter, r *http.Request) {
 	u.RequestPagina(w, "index", nil)
 }
 func InsertarMaterial(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
+	if r.Method == http.MethodGet {
 		u.RequestPagina(w, "insertar", nil)
+		return
 	} else {
 		idMaterial := r.FormValue("idMaterial")
 		descripcion := r.FormValue("descripcion")
 		fecha := r.FormValue("fecha")
-		Num := r.FormValue("precio")
-		Num2 := r.FormValue("cantidad")
-		Num3 := r.FormValue("dolar")
-		precio, _ := strconv.ParseFloat(Num, 64)
-		cantidad, _ := strconv.Atoi(Num2)
-		dolar, _ := strconv.ParseFloat(Num3, 64)
+		precio, _ := strconv.ParseFloat(r.FormValue("precio"), 64)
+		cantidad, _ := strconv.Atoi(r.FormValue("cantidad"))
+		dolar, _ := strconv.ParseFloat(r.FormValue("dolar"), 64)
+		bhabilitado, _ := strconv.Atoi("bhabilitado")
 		if idMaterial == "" {
-			_, err := cd.InsertarMaterial(descripcion, precio, cantidad, fecha, dolar, true)
+			_, err := cd.InsertarMaterial(descripcion, precio, cantidad, fecha, dolar, bhabilitado)
 			if err == nil {
 				http.Redirect(w, r, "materiales", http.StatusMovedPermanently)
 
 			} else {
 				material := m.Materiales{Descripcion: descripcion,
 					Precio: precio, Cantidad: cantidad, Fecha: fecha,
-					Dolar: dolar, ExisteError: true, MensajeError: err.Error()}
+					Dolar: dolar, Bhabilitado: 1, ExisteError: true, MensajeError: err.Error()}
 				u.RequestPagina(w, "insertar", material)
 			}
 
 		} else {
-			num, _ := strconv.Atoi(idMaterial)
-			_, err := cd.Actualizar(num, descripcion, precio, cantidad, fecha, dolar)
+			id, _ := strconv.Atoi(idMaterial)
+			_, err := cd.Actualizar(id, descripcion, precio, cantidad, fecha, dolar)
 			if err == nil {
 				http.Redirect(w, r, "materiales", http.StatusMovedPermanently)
 			}
@@ -93,6 +94,7 @@ func EditarMaterial(w http.ResponseWriter, r *http.Request) {
 	id := mapa["id"]
 	num, _ := strconv.Atoi(id)
 	oMaterial := cd.BuscarMaterialesPorId(num)
+	fmt.Println("Parametro, su valor es: ", oMaterial)
 	u.RequestPagina(w, "editar", oMaterial)
 }
 func EliminarMaterial(w http.ResponseWriter, r *http.Request) {

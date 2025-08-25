@@ -26,9 +26,9 @@
                 <td>Descripcion Materiales</td>
                 <td>Precio Unidad</td>
                 <td>Cantidad</td>
-                <td>Precio Total</td>
                 <td>Fecha  </td>
                 <td>Dolar </td>
+                <td>Habilitado</td>
                 <td>Operaciones</td>
             </tr>
         </thead>
@@ -39,16 +39,15 @@
                 <td>{{.Descripcion}}</td>
                 <td>{{.Precio}} $</td>
                 <td>{{.Cantidad}} un.</td>
-                <td>{{.Total}} $</td>
                 <td>{{.Fecha}}</td>
                 <td>{{.Dolar}} $</td>
+                <td>{{.Bhabilitado}} $</td>
 
                 <td>
-                    <a class="btn btn-primary" href="/editar/{{.Id}}">{{.Id}}
-
+                    <a class="btn btn-primary" href="materiales/editar/{{.Id}}">
                         <img src="/static/Icons/airplane-engines-fill.svg" alt="" width="16" height="16">
                     </a>
-                    <a class="btn btn-primary" onclick="mostrarAlerta({{.Id}})" href="/eliminar/{{.Id}}">
+                    <a class="btn btn-primary" onclick="mostrarAlerta({{.Id}})" href="materiales/eliminar/{{.Id}}">
                         <img src="/static/Icons/trash3-fill.svg" alt="" width="16" height="16">
                     </a>
                 </td>

@@ -5,16 +5,25 @@ import (
 )
 
 type Materiales struct {
+	Id           int
 	Descripcion  string
 	Precio       float64
 	Cantidad     int
 	Total        float64
 	Fecha        string
 	Dolar        float64
-	Id           int
-	Bhabilitado  bool
+	Bhabilitado  int
 	ExisteError  bool
 	MensajeError string
+}
+type MaterialesCombo struct {
+	Id          int
+	Descripcion string
+	Precio      float64
+	Cantidad    int
+	Total       float64
+	Fecha       string
+	Dolar       float64
 }
 type Wilder struct {
 	Descripcion string
@@ -22,6 +31,7 @@ type Wilder struct {
 	Cantidad    int
 }
 type ListaMateriales []Materiales
+type ListaCombo []MaterialesCombo
 type ListaWilder []Wilder
 
 func Max(descripcion string) error {

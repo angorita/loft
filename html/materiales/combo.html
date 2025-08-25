@@ -13,8 +13,7 @@
     {{template "menu"}}
     <h1>Materiales ComboBox</h1>
     <input type="text" id="idbuscado" value="{{.IdCombo}}">
-    <form method="POST" action="/combo">
-
+    <form method="POST" action="">
         <div class=" input-group container">
             <select class="form-select" name="idMaterial" id="idcombobuscado"
                 aria-label="Example select with button addon">
@@ -29,23 +28,23 @@
     <table class="table container" id="table">
         <thead>
             <tr class="table-dark">
+                <td>Id </td>
                 <td>Descripcion Materiales</td>
                 <td>Precio por Unidad</td>
                 <td>Cantidad </td>
                 <td>Fecha</td>
                 <td>Dolar Hoy</td>
-                <td>Id </td>
             </tr>
         </thead>
         <tbody>
             {{range .ListaMateriales}}
             <tr>
+                <td>{{.Id}}</td>
                 <td>{{.Descripcion}}</td>
                 <td>{{.Precio}}</td>
                 <td>{{.Cantidad}}</td>
                 <td>{{.Fecha}}</td>
                 <td>{{.Dolar}}</td>
-                <td>{{.Id}}</td>
             </tr>
             {{end}}
         </tbody>

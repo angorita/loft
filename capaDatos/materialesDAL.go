@@ -7,13 +7,6 @@ import (
 	m "github.com/angorita/loft/models"
 )
 
-/*
-$total = $producto['precio'] * $producto['cantidad'];
-
-	$parcial += $total;
-	$totalUsa = ($producto['precio'] * $producto['cantidad'] ) / $producto['dolar'];
-	$parcialUsa += $totalUsa;
-*/
 func ListaMateriales() m.ListaMateriales {
 	oListaMateriales := m.ListaMateriales{}
 	sqlQuery := `SELECT id,
@@ -21,7 +14,7 @@ func ListaMateriales() m.ListaMateriales {
 	precio*cantidad as total,
 	strftime('%m-%Y',fecha),
 	dolar,
-	bhabilitado=1 
+	bhabilitado
 	FROM producto
 	Order by id asc
 	`
@@ -37,41 +30,44 @@ func ListaMateriales() m.ListaMateriales {
 	}
 	return oListaMateriales
 }
+
+// filtrado de materiales por descripcion...
 func FiltrarMateriales(nombreMat string) m.ListaMateriales {
 	oListaMateriales := m.ListaMateriales{}
-	sqlQuery := `SELECT * FROM  producto
+	sqlQuery := `SELECT id,descripcion,precio,cantidad,strftime('%m-%Y',fecha)fecha,dolar FROM  producto
 	where descripcion like '%'||$1||'%'`
 	db.Open()
 	rows, _ := db.Query(sqlQuery, nombreMat)
 	for rows.Next() {
 		oMateriales := m.Materiales{}
 		rows.Scan(&oMateriales.Id, &oMateriales.Descripcion, &oMateriales.Precio,
-			&oMateriales.Cantidad, &oMateriales.Fecha, &oMateriales.Dolar,
-			&oMateriales.Bhabilitado)
+			&oMateriales.Cantidad, &oMateriales.Fecha, &oMateriales.Dolar)
 		oListaMateriales = append(oListaMateriales, oMateriales)
 
 	}
 	return oListaMateriales
 }
 
+// error en el orden de los campos en sqlquery y por ende en rows.Scan
 func FiltrarId(IdMaterial int) m.ListaMateriales {
 	oComboMateriales := m.ListaMateriales{}
-	sqlQuery := `select * from producto where id = ( $1)`
+	sqlQuery := `select id,descripcion,precio,cantidad,
+	fecha,dolar from producto where id = ( $1)`
 	db.Open()
 	rows, _ := db.Query(sqlQuery, IdMaterial)
 	for rows.Next() {
 		oMateriales := m.Materiales{}
 		rows.Scan(&oMateriales.Id, &oMateriales.Descripcion, &oMateriales.Precio,
 			&oMateriales.Cantidad, &oMateriales.Fecha, &oMateriales.Dolar,
-			&oMateriales.Bhabilitado)
+		)
 		oComboMateriales = append(oComboMateriales, oMateriales)
 	}
 	db.Close()
 	return oComboMateriales
 }
 func BuscarMaterialesPorId(id int) m.Materiales {
-
-	sqlQuery := `select descripcion,precio,cantidad,fecha,dolar,id from producto where id=($1)`
+	//el orden del query debe ser respetado en rows...
+	sqlQuery := `select id,descripcion,precio,cantidad,fecha,dolar from producto where id=($1)`
 	db.Open()
 	rows, _ := db.Query(sqlQuery, id)
 	oMateriales := m.Materiales{}
@@ -83,14 +79,14 @@ func BuscarMaterialesPorId(id int) m.Materiales {
 
 	return oMateriales
 }
-func InsertarMaterial(descripcion string, precio float64, cantidad int, fecha string, dolar float64, bhabilitado bool) (sql.Result, error) {
+func InsertarMaterial(descripcion string, precio float64, cantidad int, fecha string, dolar float64, bhabilitado int) (sql.Result, error) {
 	db.Open()
 	sql := `insert into producto(descripcion, precio, cantidad, fecha, dolar, bhabilitado)values($1,$2,$3,$4,$5,$6)`
 	errorMaterial := m.Max(descripcion)
 	if errorMaterial != nil {
 		return nil, errorMaterial
 	}
-	result, err := db.Exec(sql, descripcion, precio, cantidad, fecha, dolar, true)
+	result, err := db.Exec(sql, descripcion, precio, cantidad, fecha, dolar, bhabilitado)
 	db.Close()
 	return result, err
 }

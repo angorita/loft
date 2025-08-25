@@ -12,7 +12,7 @@
 <body class="container">
     {{template "menu"}}
     <h1>Insertar Materiales...</h1>
-    <form action="/insertar" method="POST" class="container" id="frmEnviar">
+    <form action="" method="POST" class="container" id="frmEnviar">
         <div class="mb-3">
             <label for="txtDescripcion" class="form-label">Descripcion Material</label>
             <input type="text" class="form-control" id="txtDescripcion" value="Cajas de Dulce de leche"
@@ -31,15 +31,22 @@
         </div>
         <div class="mb-3">
             <label for="txtFecha" class="form-label">Fecha</label>
-            <input type="text" class="form-control" id="txtFecha" placeholder="Coloque la fecha" name="fecha" value="2014-10-28">
+            <input type="text" class="form-control" id="txtFecha" placeholder="Coloque la fecha" name="fecha"
+                value="2014-10-28">
         </div>
         <div class="mb-3">
             <label for="txtDolar" class="form-label">Dolar Hoy</label>
             <input type="number" class="form-control" id="txtDolar" placeholder="Coloque el valor del dolar de hoy"
                 name="dolar" value="1200">
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" checked id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault" >
+                Bhabilitado
+            </label>
+        </div>
         <div>
-            <!-- llamo a sweet alert personalizado -->
+            <!-- llamo a sweet alert personalizado, tiene que tener un submit aca o en js -->
             <button type="submit" onclick="mostrarAlerta()" class="btn btn-outline-success">
                 Aceptar
             </button>
