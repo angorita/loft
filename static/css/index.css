@@ -1,0 +1,13 @@
+* {
+    padding:1px;
+    margin:1px;
+    color:rgb(224, 51, 51);
+    font-family: monospace;
+    font-size: 12px;
+}
+
+tr:hover td {
+    background: #ee0a0a98;
+    color: rgb(255, 255, 255);
+}
+
